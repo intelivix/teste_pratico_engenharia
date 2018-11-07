@@ -102,3 +102,7 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# teste_pratico_engenharia
+teste_pratico_engenharia/*.json
+teste_pratico_engenharia/*.md5
