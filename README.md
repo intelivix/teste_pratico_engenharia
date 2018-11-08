@@ -42,17 +42,17 @@ As bases só variam em tamanho e seus itens (processos) seguem o seguinte format
 1. Carregar uma das bases de dados listadas acima em um banco de dados MongoDB.
 
 2. Responder as seguintes consultas:
-  1. Contagem total dos processos.
-  2. Contagem total dos andamentos.
-  3. Contagem de processos por estado.
-  4. Contagem de juízes que começam com 'S'.
-  5. Contagem de etiquetas mais comuns.
+  * Contagem total dos processos.
+  * Contagem total dos andamentos.
+  * Contagem de processos por estado.
+  * Contagem de juízes que começam com 'S'.
+  * Contagem de etiquetas mais comuns.
 
 3. Lendo os dados a partir do MongoDB transformá-los e carregar o resultado
 em uma tabela do PostgreSQL.
-  1. Gerar 2 modelos (Processo e Andamento) usando SQLAlchemy. Inferir os campos através do esquema apresentado acima.
+  * Gerar 2 modelos (Processo e Andamento) usando SQLAlchemy. Inferir os campos através do esquema apresentado acima.
   O candidato tem liberdade para criar novos campos para lhe ajudar nas tarefas.
-  2. Realizar as transformações abaixo:
+  * Realizar as transformações abaixo:
     1. Deixar somente o primeiro e último nome dos Juízes.
     2. Remover todos os andamentos cuja data for anterior a data de distribuição.
     3. Modificar os npus que não possuam um ano entre 1980 e 2018 para o ano 2000. 
@@ -60,7 +60,7 @@ em uma tabela do PostgreSQL.
     4. Remover todas as palavras que comecem com a letra 'r' dos textos dos andamentos.
     5. Adicionar um campo inteiro no modelo de Processo com a quantidade de andamentos (somente os válidos que já foram transformados).
     6. Adicionar um campo booleano no modelo de Andamento que verifique se a palavra cinema esta no texto.
-  3. Responder as seguintes consultas pós-processamento:
+  * Responder as seguintes consultas pós-processamento:
     1. Qual o total de processos? Qual o total de andamentos?
     2. Qual processo possui mais andamentos?
     3. Quais andamentos possuem mais caracteres? Quais são os seus processos?
@@ -68,7 +68,7 @@ em uma tabela do PostgreSQL.
     5. Qual processo possui o maior número formado pelos seus 6 primeiros números do seu npu?
     6. Qual mês/ano foram capturados mais processos para cada "spider"?
 
-4. Ao final exportar as tabelas do banco de dados PostgreSQL para um arquivo chamado `report.csv` (delimitador de texto '"', separador '|'). 
+4. Ao final exportar as tabelas do banco de dados PostgreSQL para um arquivo chamado `report.csv` (delimitador de texto **'** " **'**, separador **'** | **'**). 
 
 ###  Sobre a entrega:
 
