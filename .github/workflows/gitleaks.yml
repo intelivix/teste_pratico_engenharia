@@ -1,0 +1,45 @@
+name: gitleaks
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Instalar gitleaks
+        run: |
+          VERSION=8.24.3
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz" | tar -xz gitleaks
+          ./gitleaks version
+
+      # Em PR: varre apenas os commits do PR (segredos históricos não bloqueiam)
+      - name: Varredura dos commits do PR
+        if: github.event_name == 'pull_request'
+        run: |
+          ./gitleaks detect --source . --redact --exit-code 1 \
+            --log-opts "--no-merges ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+
+      # Em push na branch padrão: varre apenas o intervalo do push
+      - name: Varredura dos commits do push
+        if: github.event_name == 'push'
+        run: |
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.event.after }}"
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            ./gitleaks detect --source . --redact --exit-code 1 \
+              --log-opts "--no-merges -n 20"
+          else
+            ./gitleaks detect --source . --redact --exit-code 1 \
+              --log-opts "--no-merges ${BEFORE}..${AFTER}"
+          fi
